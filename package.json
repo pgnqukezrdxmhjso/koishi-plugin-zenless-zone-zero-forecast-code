@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-zenless-zone-zero-forecast-code",
-  "description": "",
-  "version": "0.0.1",
+  "description": "get Zenless Zone Zero redeem code",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -28,7 +28,7 @@
     "koishi",
     "plugin",
     "game",
-    "zenless zone zero",
+    "Zenless Zone Zero",
     "Redeem code"
   ],
   "devDependencies": {

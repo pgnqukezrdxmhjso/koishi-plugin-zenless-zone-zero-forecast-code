@@ -23,23 +23,21 @@ export function apply(ctx: Context) {
       if (rows.length < 1) {
         return;
       }
-      let actData = await Code.getActData({ http: ctx.http });
-      let dtStartTime = actData.data.dtStartTime;
-      if (dtStartTime) {
-        const startTime = new Date(dtStartTime).getTime();
-        const time = Date.now();
-        if (startTime > time || startTime < time - 24 * 60 * 60 * 1000) {
-          return;
-        }
-      }
+      let { data } = await Code.getActData({ http: ctx.http });
       ctx.messageTopicService
-        .sendMessageToTopic(topic, Code.actDataToMsg(actData))
+        .sendMessageToTopic(
+          topic,
+          "绝区零前瞻直播开始了\n" +
+            (data?.web_path?.includes("act_id=")
+              ? data.web_path
+              : data.app_path),
+        )
         .then();
     } catch (e) {
       ctx.logger.error(e);
     }
   };
-  ctx.cron("0 13 * * *", cronTask);
+  ctx.cron("1 19 * * *", cronTask);
   ctx.command("绝区零前瞻订阅").action(async ({ session }) => {
     await ctx.messageTopicService.topicSubscribe({
       platform: session.bot.platform,

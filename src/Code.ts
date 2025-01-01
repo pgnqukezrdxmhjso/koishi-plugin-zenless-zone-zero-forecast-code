@@ -99,8 +99,13 @@ const Code = {
     }
     let msg = "";
     codeList.forEach((item) => {
-      msg += item.code + "\n";
+      if(item.code){
+        msg += item.code + "\n";
+      }
     });
+    if (msg.length < 1) {
+      throw { eMsg: "没有获取到兑换码" };
+    }
     return msg;
   },
   async get({ http }: { http: HTTP }): Promise<string> {
